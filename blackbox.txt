@@ -1,0 +1,16 @@
+PDDL Operators:
+(define (domain hanoi)
+(:predicates (on ?x ?y) (smaller ?x ?y) (clear ?x))
+(:action move
+:parameters (?disk ?old ?new)
+:precondition (and (clear ?new) (on ?disk ?old) (smaller ?new ?disk) (clear ?disk))
+:effect (and (clear ?old) (not (clear ?new)) (on ?disk ?new) (not (on ?disk ?old)))))
+PDDL Facts:
+(define
+(problem hanoi)
+(:domain hanoi)
+(:objects d1 d2 p1 p2 p3)
+(:init (on d2 p1) (on d1 d2) (clear p2) (clear p3) (smaller d2 d1) (smaller p1 d1) (smaller p1 d2)
+(smaller p2 d1) (smaller p2 d2) (smaller p2 d3) (smaller p2 d4) (smaller p3 d1) (smaller p3 d2)
+(smaller p3 d3) (smaller p3 d4)
+(:goal (and (on d4 p3) (on d1 d2) (on d2 d3) (on d3 d4) (clear p1) (clear p2))))
